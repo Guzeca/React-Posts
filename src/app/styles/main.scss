@@ -1,0 +1,10 @@
+@import "reset";
+@import "variables/global";
+@import "themes/light";
+@import "themes/dark";
+
+.App {
+  height: 100vh;
+  font-family: var(--font-family-main);
+  display: flex;
+}
