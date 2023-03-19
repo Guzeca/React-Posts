@@ -1,0 +1,29 @@
+.card {
+  color: #000;
+  cursor: pointer;
+  padding: 25px;
+  border: 1px solid #000;
+
+  h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    margin-bottom: 50px;
+  }
+}
+
+.card_options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card_change {
+  display: flex;
+  column-gap: 30px;
+}
+
+.card_image {
+  object-fit: cover;
+}

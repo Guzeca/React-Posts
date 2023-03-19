@@ -8,3 +8,7 @@
   font-family: var(--font-family-main);
   display: flex;
 }
+
+.pageWrapper {
+  flex-grow: 1;
+}

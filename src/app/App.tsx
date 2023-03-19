@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Sidebar } from '@/widgets/sidebar/Sidebar';
 import clsx from 'clsx';
 import { useTheme } from '@/app/providers/ThemeProvider/lib/useTheme';
