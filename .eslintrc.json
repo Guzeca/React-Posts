@@ -28,6 +28,7 @@
         "@typescript-eslint/no-non-null-assertion": "off",
         "no-void": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
-        "@typescript-eslint/triple-slash-reference": 0
+        "@typescript-eslint/triple-slash-reference": 0,
+        "@typescript-eslint/no-floating-promises": "off"
     }
 }

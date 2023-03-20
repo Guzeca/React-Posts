@@ -7,7 +7,7 @@
 }
 
 .sidebar {
-  position: relative;
+  position: fixed;
 
   display: flex;
   flex-direction: column;
@@ -58,5 +58,3 @@
   display: flex;
   justify-content: center;
 }
-
-

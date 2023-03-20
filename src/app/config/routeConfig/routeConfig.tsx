@@ -1,19 +1,19 @@
 import { type RouteProps } from 'react-router-dom';
 import { MainPage } from '@/pages/mainPage/MainPage';
-import { BlockPage } from '@/pages/blockPage/BlockPage';
 import { NotFoundPage } from '@/pages/notFoundPage/NotFoundPage';
-import { FullCard } from '@/widgets/FullCard/FullCard';
+import { BlogPage } from '@/pages/blogPage/BlogPage';
+import { FullCard } from '@/widgets/FullArticle/FullArticle';
 
 export enum AppRoutes {
   MAIN = 'main',
-  BLOCK = 'block',
-  FULL_CARD = 'full_card',
+  blog = 'blog',
+  FULL_ARTICLE = 'full_article',
   NOT_FOUND = 'not_found'
 }
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: '/',
-  [AppRoutes.BLOCK]: '/block',
-  [AppRoutes.FULL_CARD]: '/block/:id',
+  [AppRoutes.blog]: '/blog',
+  [AppRoutes.FULL_ARTICLE]: '/blog/article/:id',
   [AppRoutes.NOT_FOUND]: '*'
 };
 
@@ -22,12 +22,12 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     path: RoutePath.main,
     element: <MainPage />
   },
-  [AppRoutes.BLOCK]: {
-    path: RoutePath.block,
-    element: <BlockPage />
+  [AppRoutes.blog]: {
+    path: RoutePath.blog,
+    element: <BlogPage />
   },
-  [AppRoutes.FULL_CARD]: {
-    path: RoutePath.full_card,
+  [AppRoutes.FULL_ARTICLE]: {
+    path: RoutePath.full_article,
     element: <FullCard />
   },
   [AppRoutes.NOT_FOUND]: {
