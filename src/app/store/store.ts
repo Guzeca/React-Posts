@@ -1,14 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { wishesAPI } from '@/app/store/product/wishesAPI';
+import { postAPI } from '@/app/store/product/postAPI';
 
 const rootReducer = combineReducers({
-  [wishesAPI.reducerPath]: wishesAPI.reducer
+  [postAPI.reducerPath]: postAPI.reducer
 });
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(wishesAPI.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(postAPI.middleware)
   });
 };
 

@@ -1,11 +1,12 @@
-import { useEffect, type FC, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import styles from './BlogPage.module.scss';
 import { Blog } from '@/shared/Ui/Blog/Blog';
 import { Loader } from '@/shared/Ui/Loader/Loader';
+import { useGetPostsQuery } from '@/app/store/product/postAPI';
 
 export const BlogPage: FC = () => {
-  const [loadPost, setLoadPost] = useState(false);
-  const [news, setNews] = useState(2);
+  const [limit, setLimit] = useState(2);
+  const { data: posts, isLoading, error } = useGetPostsQuery(limit);
 
   const handleScroll = (): void => {
     const scrollTop =
@@ -14,11 +15,7 @@ export const BlogPage: FC = () => {
       (document.documentElement && document.documentElement.scrollHeight) ||
       document.body.scrollHeight;
     if (scrollTop + window.innerHeight >= scrollHeight) {
-      setLoadPost(true);
-      setTimeout(() => {
-        setLoadPost(false);
-        setNews((prev) => prev + 1);
-      }, 1500);
+      setLimit((prev) => prev + 2);
     }
   };
 
@@ -30,13 +27,16 @@ export const BlogPage: FC = () => {
   });
 
   return (
-    <div onScroll={handleScroll} className={styles.main_content}>
+    <div className={styles.main_content}>
       <div className={styles.blog}>
-        {[...Array(news)].map((_, index) => (
-          <Blog title={index} key={index} />
-        ))}
+        {isLoading ? (
+          <Loader />
+        ) : error ? (
+          <div>{'Ошибка'}</div>
+        ) : (
+          posts?.map((item) => <Blog key={item.id} {...item} />)
+        )}
       </div>
-      {loadPost && <div className={styles.load}>{<Loader />}</div>}
     </div>
   );
 };

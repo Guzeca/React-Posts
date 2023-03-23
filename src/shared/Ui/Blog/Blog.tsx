@@ -1,30 +1,26 @@
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import Image from '../../Icons/SadCat.png';
 import styles from './Blog.module.scss';
 import { Stars } from '../Stars/Stars';
 import { Button, ButtonTheme } from '../Button/Button';
 import { Link } from 'react-router-dom';
+import { type IPosts } from '@/app/store/product/interface';
 
-interface BlogProps {
-  title: number;
-}
-
-export const Blog: FC<BlogProps> = ({ title }) => {
+export const Blog: FC<IPosts> = ({ title, images, id }) => {
   const { t } = useTranslation();
 
   return (
     <div className={styles.content}>
       <div>
-        <img src={Image} alt="image" />
+        <img src={images[0]} alt="image" />
       </div>
       <div className={styles.desc}>
         <div className={styles.text}>
-          <h3>{t(`Какое-то заглавие ${title + 1}`)}</h3>
+          <h3>{title}</h3>
         </div>
         <div className={styles.info}>
           <Stars />
-          <Link to={`/blog/article/${title + 1}`}>
+          <Link to={`/blog/article/${title}_${id}`}>
             <Button className={styles.button} theme={ButtonTheme.CLEAR}>
               {t('Подробнее')}
             </Button>
