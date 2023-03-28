@@ -2,12 +2,11 @@ import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import { Button, ButtonTheme } from '@/shared/Ui/Button/Button';
+import { UserComment } from '@/shared/Ui/UserComment/UserComment';
+import { useGetOnePostQuery } from '@/app/store/product/postAPI';
+import { Stars } from '@/shared/Ui/Stars/Stars';
 
 import styles from './FullArticle.module.scss';
-import { Stars } from '@/shared/Ui/Stars/Stars';
-import { useGetOnePostQuery } from '@/app/store/product/postAPI';
-
-// const tagsArray = ['Technology', 'C++', 'Java', 'HTML'];
 
 export const FullPost: FC = () => {
   const { t } = useTranslation();
@@ -16,12 +15,6 @@ export const FullPost: FC = () => {
 
   const { data, isLoading, error } = useGetOnePostQuery(id);
 
-  // const tags = tagsArray.map((item) => (
-  //   <Link key={item} to={`/blog/articles/tags/${item}`}>
-  //     {`#${item}`}
-  //   </Link>
-  // ));
-  console.log(data);
   return (
     <div className={styles.main_content}>
       <Link to={'/blog'}>
@@ -51,7 +44,9 @@ export const FullPost: FC = () => {
           </div>
           <div>
             <p>Комментарии:</p>
-            <div className={styles.comments}></div>
+            <div className={styles.comments}>
+              <UserComment />
+            </div>
           </div>
         </div>
       )}

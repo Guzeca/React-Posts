@@ -1,0 +1,36 @@
+.main {
+  width: 300px;
+  position: relative;
+  margin-right: 50px;
+
+  &:hover {
+    .list {
+      display: block;
+    }
+  }
+}
+
+.title {
+  cursor: pointer;
+  border: 1px solid grey;
+  padding: 5px;
+}
+
+.list {
+  top: 30px;
+  left: 0;
+  position: absolute;
+  width: max-content;
+}
+
+.item {
+  cursor: pointer;
+  list-style: none;
+  padding: 3px;
+  border: 1px solid grey;
+  background: white;
+
+  &:hover {
+    background: grey;
+  }
+}

@@ -1,22 +1,32 @@
-.content {
+.comment {
   border: 1px solid grey;
   border-radius: 15px;
-  padding: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+}
 
-  h4 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+.profile {
+  display: flex;
+  align-items: center;
+  padding: 15px 15px 10px 15px;
+  border-bottom: 1px dotted red;
+}
+
+.avatar {
+  width: 64px;
+  border-radius: 50%;
+}
+
+.desc {
+  margin-left: 20px;
 
   p {
     cursor: pointer;
-    margin-bottom: 15px;
-    color: blue;
+    color: rgba(0, 0, 255, 0.512);
   }
 }
 
-.text {
+.content {
+  padding: 15px;
   font-size: var(--font-size-l);
   line-height: var(--font-line-l);
 }

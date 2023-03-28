@@ -1,0 +1,17 @@
+.search {
+  position: relative;
+  margin-left: 50px;
+  width: 30%;
+}
+
+.input {
+  width: 100%;
+  font-size: var(--font-size-m);
+  padding: 10px 15px 10px 50px;
+}
+
+.find {
+  position: absolute;
+  left: 6px;
+  top: 6px
+}

@@ -6,7 +6,7 @@ import { Button, ButtonTheme } from '../Button/Button';
 import { Link } from 'react-router-dom';
 import { type IPosts } from '@/app/store/product/interface';
 
-export const Blog: FC<IPosts> = ({ title, images, id }) => {
+export const Blog: FC<IPosts> = ({ title, images, id, price, creationAt = '' }) => {
   const { t } = useTranslation();
 
   return (
@@ -28,6 +28,9 @@ export const Blog: FC<IPosts> = ({ title, images, id }) => {
         </div>
       </div>
       <div className={styles.comments}>{t('Какой-то комментарий')}</div>
+      {price}
+      <div></div>
+      {creationAt}
     </div>
   );
 };
