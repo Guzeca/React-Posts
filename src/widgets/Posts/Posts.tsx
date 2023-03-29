@@ -16,8 +16,8 @@ export const Posts: FC = () => {
 
   const posts =
     sortBy === SortByType.POPULAR
-      ? data?.slice().sort((a, b) => a.price - b.price)
-      : data?.slice().sort((a, b) => Date.parse(a.creationAt) - Date.parse(b.creationAt));
+      ? data?.slice().sort((a, b) => b.price - a.price)
+      : data?.slice().sort((a, b) => Date.parse(b.creationAt) - Date.parse(a.creationAt));
 
   const handleScroll = (): void => {
     const scrollTop =

@@ -6,11 +6,13 @@ export enum SortByType {
 }
 
 export interface ICategoryId {
+  searchValue: string;
   categoryId: number;
   sortBy: SortByType;
 }
 
 const initialState: ICategoryId = {
+  searchValue: '',
   categoryId: 0,
   sortBy: SortByType.POPULAR
 };
@@ -24,10 +26,13 @@ export const categorySlice = createSlice({
     },
     changeSortBy: (state, action: PayloadAction<SortByType>) => {
       state.sortBy = action.payload;
+    },
+    setSearchValue: (state, action: PayloadAction<string>) => {
+      state.searchValue = action.payload;
     }
   }
 });
 
-export const { changeCategoryId, changeSortBy } = categorySlice.actions;
+export const { changeCategoryId, changeSortBy, setSearchValue } = categorySlice.actions;
 
 export default categorySlice.reducer;

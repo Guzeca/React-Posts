@@ -2,7 +2,7 @@ export interface IPosts {
   id: number;
   title: string;
   price: number;
-  description?: string;
+  description: string;
   images: string[];
   creationAt: string;
   updatedAt?: string;

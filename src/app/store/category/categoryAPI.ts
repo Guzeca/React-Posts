@@ -12,8 +12,8 @@ export const categoryAPI = createApi({
         url: 'categories'
       })
     }),
-    getAllProductsByCategory: build.query<IPostByCategory[], string>({
-      query: (id) => `categories/${id}/products`
+    getAllProductsByCategory: build.query<IPostByCategory[], { id: string; limit: number }>({
+      query: ({ id, limit }) => `categories/${id}/products?offset=0&limit=${limit}`
     })
   })
 });

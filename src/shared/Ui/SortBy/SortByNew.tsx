@@ -1,48 +1,33 @@
-import { useState, type FC, useRef } from 'react';
+import { type FC, useState } from 'react';
 import styles from './SortBy.module.scss';
-import { useOnClickOutside } from '@/shared/hooks/useClickOutside';
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks/redux';
+import clsx from 'clsx';
+import { useAppDispatch } from '@/app/store/hooks/redux';
 import { SortByType, changeSortBy } from '@/app/store/category/categorySlice';
 
-const sortByArr = ['Свежее', 'Популярное'];
-
 export const SortBy: FC = () => {
-  const { sortBy } = useAppSelector((state) => state.categoryId);
   const dispatch = useAppDispatch();
-  const [open, setOpen] = useState(false);
-
-  const ref = useRef<HTMLDivElement>(null);
+  const [currentSort, setCurrentSort] = useState(true);
 
   const toggleSort = (value: SortByType): void => {
     dispatch(changeSortBy(value));
+    setCurrentSort(!currentSort);
   };
 
-  useOnClickOutside(ref, () => {
-    setOpen(false);
-  });
-
   return (
-    <div ref={ref} className={styles.main}>
+    <div className={styles.main}>
       <div
         onClick={() => {
-          setOpen(!open);
+          toggleSort(SortByType.FRESH);
         }}
-        className={styles.title}>
-        {sortBy}
-        {open && (
-          <ul className={styles.list}>
-            {sortByArr.map((item) => (
-              <li
-                onClick={() => {
-                  toggleSort(sortBy === SortByType.POPULAR ? SortByType.FRESH : SortByType.POPULAR);
-                }}
-                key={item}
-                className={styles.item}>
-                {item}
-              </li>
-            ))}
-          </ul>
-        )}
+        className={clsx(styles.sort_fresh, { [styles.active]: currentSort })}>
+        {SortByType.FRESH}
+      </div>
+      <div
+        onClick={() => {
+          toggleSort(SortByType.POPULAR);
+        }}
+        className={clsx(styles.sort_popular, { [styles.active]: !currentSort })}>
+        {SortByType.POPULAR}
       </div>
     </div>
   );
