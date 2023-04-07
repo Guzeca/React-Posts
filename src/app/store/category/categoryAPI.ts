@@ -1,19 +1,24 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { type IPostByCategory, type ICategories } from '@/app/store/category/interface';
+import { type SortByType } from './categorySlice';
 
 export const categoryAPI = createApi({
   reducerPath: 'categoryAPI',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.escuelajs.co/api/v1/'
+    baseUrl: 'https://6428495546fd35eb7c4fa334.mockapi.io/'
   }),
   endpoints: (build) => ({
     getCategories: build.query<ICategories[], void>({
       query: () => ({
-        url: 'categories'
+        url: 'category'
       })
     }),
-    getAllProductsByCategory: build.query<IPostByCategory[], { id: string; limit: number }>({
-      query: ({ id, limit }) => `categories/${id}/products?offset=0&limit=${limit}`
+    getAllProductsByCategory: build.query<
+      IPostByCategory[],
+      { category: string; limit: number; order: SortByType }
+    >({
+      query: ({ category, limit, order }) =>
+        `posts?category=${category}&page=1&limit=${limit}&orderBy=${order}&order=desc`
     })
   })
 });

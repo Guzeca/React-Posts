@@ -5,6 +5,7 @@ import { useTheme } from '@/app/providers/ThemeProvider/lib/useTheme';
 import { AppRouter } from '@/app/providers/AppRouter/AppRouter';
 import { Provider } from 'react-redux';
 import { setupStore } from '@/app/store/store';
+import { NavigateLink } from '@/shared/Ui/NavigateLink/NavigateLink';
 
 const store = setupStore();
 
@@ -14,7 +15,10 @@ function App(): JSX.Element {
     <Provider store={store}>
       <div className={clsx('App', theme)}>
         <Suspense fallback="">
-          <Sidebar />
+          <Sidebar>
+            <NavigateLink path={'/'} title={'Home'} />
+            <NavigateLink path={'/blog'} title={'Posts'} />
+          </Sidebar>
           <AppRouter />
         </Suspense>
       </div>

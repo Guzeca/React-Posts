@@ -1,4 +1,4 @@
-import { useGetPostsByNameQuery } from '@/app/store/product/postAPI';
+import { useGetPostsByNameQuery } from '@/app/store/posts/postAPI';
 import { Blog } from '@/shared/Ui/Blog/Blog';
 import { Loader } from '@/shared/Ui/Loader/Loader';
 import { type FC } from 'react';
@@ -14,7 +14,7 @@ export const SearchedPosts: FC = () => {
 
   const posts =
     sortBy === SortByType.POPULAR
-      ? data?.slice().sort((a, b) => b.price - a.price)
+      ? data?.slice().sort((a, b) => b.rating - a.rating)
       : data?.slice().sort((a, b) => Date.parse(b.creationAt) - Date.parse(a.creationAt));
 
   return (

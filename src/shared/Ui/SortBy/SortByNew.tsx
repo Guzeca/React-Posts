@@ -19,15 +19,15 @@ export const SortBy: FC = () => {
         onClick={() => {
           toggleSort(SortByType.FRESH);
         }}
-        className={clsx(styles.sort_fresh, { [styles.active]: currentSort })}>
-        {SortByType.FRESH}
+        className={clsx(styles.sort_fresh, { [styles.active]: !currentSort })}>
+        {'Свежее'}
       </div>
       <div
         onClick={() => {
           toggleSort(SortByType.POPULAR);
         }}
-        className={clsx(styles.sort_popular, { [styles.active]: !currentSort })}>
-        {SortByType.POPULAR}
+        className={clsx(styles.sort_popular, { [styles.active]: currentSort })}>
+        {'Популярное'}
       </div>
     </div>
   );

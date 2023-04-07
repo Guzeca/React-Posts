@@ -5,7 +5,8 @@ import styles from './ScrollUp.module.scss';
 
 export const ScrollUp: FC = () => {
   const onClickArrow = (): void => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    const ref = document.getElementById('ref');
+    ref?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
 
   return (

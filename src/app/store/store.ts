@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { postAPI } from '@/app/store/product/postAPI';
+import { postAPI } from '@/app/store/posts/postAPI';
 import { commentAPI } from './comment/commentAPI';
 import { categoryAPI } from './category/categoryAPI';
 import { type ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';

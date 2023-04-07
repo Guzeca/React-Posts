@@ -3,7 +3,7 @@ import styles from './Category.module.scss';
 import { useGetCategoriesQuery } from '@/app/store/category/categoryAPI';
 import { useOnClickOutside } from '@/shared/hooks/useClickOutside';
 import { useAppDispatch } from '@/app/store/hooks/redux';
-import { changeCategoryId } from '@/app/store/category/categorySlice';
+import { changeCategory } from '@/app/store/category/categorySlice';
 
 export const Category: FC = () => {
   const [category, setCategory] = useState('Все категории');
@@ -14,10 +14,14 @@ export const Category: FC = () => {
 
   const { data } = useGetCategoriesQuery();
 
-  const changeCategory = (item: string, id: number): void => {
+  const handleCategory = (item: string): void => {
+    if (item === 'Все категории') {
+      dispatch(changeCategory(''));
+    } else {
+      dispatch(changeCategory(item.toLowerCase()));
+    }
     setCategory(item);
     setOpen(false);
-    dispatch(changeCategoryId(id));
   };
 
   useOnClickOutside(ref, () => {
@@ -38,7 +42,7 @@ export const Category: FC = () => {
             {category !== 'Все категории' ? (
               <li
                 onClick={() => {
-                  changeCategory('Все категории', 0);
+                  handleCategory('Все категории');
                 }}
                 className={styles.item}>
                 {'Все категории'}
@@ -49,7 +53,7 @@ export const Category: FC = () => {
             {data?.map((item) => (
               <li
                 onClick={() => {
-                  changeCategory(item.name, item.id);
+                  handleCategory(item.name);
                 }}
                 className={styles.item}
                 key={item.id}>

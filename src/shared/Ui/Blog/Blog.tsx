@@ -4,15 +4,15 @@ import styles from './Blog.module.scss';
 import { Stars } from '../Stars/Stars';
 import { Button, ButtonTheme } from '../Button/Button';
 import { Link } from 'react-router-dom';
-import { type IPosts } from '@/app/store/product/interface';
+import { type IPosts } from '@/app/store/posts/interface';
 
-export const Blog: FC<IPosts> = ({ title, images, id, price, creationAt = '' }) => {
+export const Blog: FC<IPosts> = ({ title, images, id, rating, creationAt = '' }) => {
   const { t } = useTranslation();
 
   return (
     <div className={styles.content}>
       <div>
-        <img src={images[0]} alt="image" />
+        <img src={images} alt="image" />
       </div>
       <div className={styles.desc}>
         <div className={styles.text}>
@@ -28,7 +28,7 @@ export const Blog: FC<IPosts> = ({ title, images, id, price, creationAt = '' }) 
         </div>
       </div>
       <div className={styles.comments}>{t('Какой-то комментарий')}</div>
-      {price}
+      {rating}
       <div></div>
       {creationAt}
     </div>

@@ -1,9 +1,4 @@
-export interface ICategories {
-  id: number;
-  name: string;
-}
-
-export interface IPostByCategory {
+export interface IPosts {
   id: number;
   title: string;
   rating: number;

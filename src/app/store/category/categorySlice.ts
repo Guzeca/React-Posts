@@ -1,38 +1,43 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export enum SortByType {
-  FRESH = 'Свежее',
-  POPULAR = 'Популярное'
+  FRESH = 'creationAt',
+  POPULAR = 'rating'
 }
 
 export interface ICategoryId {
   searchValue: string;
-  categoryId: number;
+  category: string;
   sortBy: SortByType;
+  limit: number;
 }
 
 const initialState: ICategoryId = {
   searchValue: '',
-  categoryId: 0,
-  sortBy: SortByType.POPULAR
+  category: '',
+  sortBy: SortByType.POPULAR,
+  limit: 2
 };
 
 export const categorySlice = createSlice({
   name: 'category',
   initialState,
   reducers: {
-    changeCategoryId: (state, action: PayloadAction<number>) => {
-      state.categoryId = action.payload;
+    changeCategory: (state, action: PayloadAction<string>) => {
+      state.category = action.payload;
     },
     changeSortBy: (state, action: PayloadAction<SortByType>) => {
       state.sortBy = action.payload;
     },
     setSearchValue: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload;
+    },
+    changeLimit: (state, action: PayloadAction<number>) => {
+      state.limit = action.payload;
     }
   }
 });
 
-export const { changeCategoryId, changeSortBy, setSearchValue } = categorySlice.actions;
+export const { changeCategory, changeSortBy, setSearchValue, changeLimit } = categorySlice.actions;
 
 export default categorySlice.reducer;

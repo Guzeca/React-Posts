@@ -17,16 +17,14 @@ export const Sidebar: FC<SidebarProps> = ({ children }) => {
       setCollapsed(storedSidebarCollapse === 'true');
     }
   }, []);
-  const sidebarToggle = () => {
+  const sidebarToggle = (): void => {
     const newCollapsed = !collapsed;
     setCollapsed(newCollapsed);
     localStorage.setItem('isSidebarCollapsed', JSON.stringify(newCollapsed));
   };
   return (
     <div className={clsx(collapsed && styles.sidebar_collapsed, styles.sidebar)}>
-      <div className={clsx(collapsed && styles.children_collapsed, styles.sidebar_children)}>
-        {children}
-      </div>
+      <div className={clsx(collapsed && styles.children_collapsed)}>{children}</div>
       <div className={clsx(collapsed && styles.collapsed_switchers, styles.switchers_wrapper)}>
         <ThemeSwitcher className={styles.switchers} />
         <LangSwitcher className={styles.switchers} />
