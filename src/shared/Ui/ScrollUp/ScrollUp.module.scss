@@ -2,5 +2,13 @@
   cursor: pointer;
   position: fixed;
   top: 200px;
-  left: 150px;
+  left: 185px;
+}
+
+.icon {
+  fill: var(--icons-fill);
+
+  &:hover {
+    fill: var(--secondary-color);
+  }
 }

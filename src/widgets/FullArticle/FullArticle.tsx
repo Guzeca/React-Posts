@@ -1,52 +1,64 @@
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
-import { Button, ButtonTheme } from '@/shared/Ui/Button/Button';
+import { Button } from '@/shared/Ui/Button/Button';
 import { UserComment } from '@/shared/Ui/UserComment/UserComment';
-import { useGetOnePostQuery } from '@/app/store/posts/postAPI';
-import { Stars } from '@/shared/Ui/Stars/Stars';
+import { useGetOnePostQuery, useUpdatePostMutation } from '@/app/store/posts/postAPI';
 
 import styles from './FullArticle.module.scss';
+import { StarsForFullArticle } from '@/shared/Ui/Stars/StarsForFullArticle';
+import { type IPosts } from '@/app/store/posts/interface';
 
 export const FullPost: FC = () => {
   const { t } = useTranslation();
   const { title } = useParams();
-  const id = Number(title?.match(/[0-9]+$/g)?.join());
+  const id = title?.match(/[0-9]+$/g)?.join() ?? '';
 
   const { data, isLoading, error } = useGetOnePostQuery(id);
+  const post = data && data[0];
+
+  const [updatePost] = useUpdatePostMutation();
+
+  const handleUpdate = (data: IPosts): void => {
+    updatePost(data);
+  };
 
   return (
     <div className={styles.main_content}>
       <Link to={'/blog'}>
-        <Button theme={ButtonTheme.SQUARE}>{t('Назад')}</Button>
+        <Button className={styles.back}>{t('Назад')}</Button>
       </Link>
       {isLoading ? (
         <div>{'Загрузка'}</div>
       ) : error ? (
         <div>{'Ошибка'}</div>
       ) : (
-        data && (
+        post && (
           <div className={styles.article}>
             <div className={styles.image}>
-              <img src={data[0].images} alt="image" />
+              <img src={post.images} alt="image" />
             </div>
             <div className={styles.title}>
-              <h2>{data[0].title}</h2>
+              <h2>{post.title}</h2>
             </div>
-            <div className={styles.tags}>{data[0].category}</div>
+            <div className={styles.tags}>
+              {post.category.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
+            </div>
             <div className={styles.author}>
               <Link to={'/blog/articles/authors/author'}>{t('Автор')}</Link>
             </div>
             <div className={styles.desc}>
-              <p>{data[0].description}</p>
+              <p>{post.description}</p>
             </div>
             <div>
-              <Stars />
+              <StarsForFullArticle update={handleUpdate} post={post} />
             </div>
-            <div>
+            <div className={styles.text}>
               <p>Комментарии:</p>
               <div className={styles.comments}>
-                <UserComment />
+                <UserComment value={post.comments} />
               </div>
             </div>
           </div>

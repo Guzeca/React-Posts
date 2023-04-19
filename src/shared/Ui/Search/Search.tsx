@@ -5,6 +5,8 @@ import { useAppDispatch } from '@/app/store/hooks/redux';
 import debounce from 'lodash.debounce';
 import { setSearchValue } from '@/app/store/category/categorySlice';
 import { ReactComponent as Clear } from '@/shared/Icons/clear.svg';
+import { changePost } from '@/app/store/posts/postSlice';
+import { TypeOfPosts } from '@/app/store/posts/interface';
 
 export const Search: FC = () => {
   const [value, setValue] = useState('');
@@ -15,6 +17,7 @@ export const Search: FC = () => {
   const updateSearchValue = useCallback(
     debounce((str: string) => {
       dispatch(setSearchValue(str.toLowerCase()));
+      dispatch(changePost(TypeOfPosts.SEARCH));
     }, 500),
     []
   );
@@ -27,6 +30,7 @@ export const Search: FC = () => {
   const onClickClear = (): void => {
     setValue('');
     dispatch(setSearchValue(''));
+    dispatch(changePost(TypeOfPosts.REGULAR));
     inputRef.current?.focus();
   };
 

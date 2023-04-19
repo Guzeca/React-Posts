@@ -1,22 +1,10 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
-
-export enum SortByType {
-  FRESH = 'creationAt',
-  POPULAR = 'rating'
-}
-
-export interface ICategoryId {
-  searchValue: string;
-  category: string;
-  sortBy: SortByType;
-  limit: number;
-}
+import { type ICategoryId, SortByType } from './interface';
 
 const initialState: ICategoryId = {
   searchValue: '',
   category: '',
-  sortBy: SortByType.POPULAR,
-  limit: 2
+  sortBy: SortByType.POPULAR
 };
 
 export const categorySlice = createSlice({
@@ -31,13 +19,10 @@ export const categorySlice = createSlice({
     },
     setSearchValue: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload;
-    },
-    changeLimit: (state, action: PayloadAction<number>) => {
-      state.limit = action.payload;
     }
   }
 });
 
-export const { changeCategory, changeSortBy, setSearchValue, changeLimit } = categorySlice.actions;
+export const { changeCategory, changeSortBy, setSearchValue } = categorySlice.actions;
 
 export default categorySlice.reducer;

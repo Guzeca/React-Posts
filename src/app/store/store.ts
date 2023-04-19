@@ -4,12 +4,14 @@ import { commentAPI } from './comment/commentAPI';
 import { categoryAPI } from './category/categoryAPI';
 import { type ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
 import categoryId from './category/categorySlice';
+import post from './posts/postSlice';
 
 const rootReducer = combineReducers({
   [postAPI.reducerPath]: postAPI.reducer,
   [commentAPI.reducerPath]: commentAPI.reducer,
   [categoryAPI.reducerPath]: categoryAPI.reducer,
-  categoryId
+  categoryId,
+  post
 });
 
 export const setupStore = (): ToolkitStore => {

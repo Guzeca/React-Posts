@@ -13,7 +13,13 @@
 
 .avatar {
   width: 64px;
-  border-radius: 50%;
+  height: 64px;
+
+  img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+  }
 }
 
 .desc {
@@ -21,7 +27,7 @@
 
   p {
     cursor: pointer;
-    color: rgba(0, 0, 255, 0.512);
+    color: var(--primary-color);
   }
 }
 

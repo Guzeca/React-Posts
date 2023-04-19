@@ -5,6 +5,8 @@
   width: 200px;
 
   &:hover {
+    background-color: var(--secondary-color);
+
     .list {
       display: block;
     }
@@ -13,7 +15,8 @@
 
 .title {
   cursor: pointer;
-  border: 1px solid grey;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
   padding: 5px;
 }
 
@@ -28,10 +31,10 @@
   cursor: pointer;
   list-style: none;
   padding: 3px;
-  border: 1px solid grey;
-  background: white;
+  border: 2px solid var(--primary-color);
+  background: var(--bg-color);
 
   &:hover {
-    background: grey;
+    background: var(--secondary-color);
   }
 }

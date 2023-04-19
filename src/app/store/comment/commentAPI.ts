@@ -8,7 +8,7 @@ export const commentAPI = createApi({
   }),
   endpoints: (build) => ({
     getComments: build.query<IComments[], number>({
-      query: (limit = 3) => `users?offset=0&limit=${limit}`
+      query: (limit = 2) => `users?offset=0&limit=${limit}`
     })
   })
 });

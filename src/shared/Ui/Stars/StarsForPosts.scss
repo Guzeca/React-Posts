@@ -1,0 +1,34 @@
+.half-stars {
+  text-align: center;
+  margin-right: 25px;
+}
+
+.half-stars .rating-group {
+  display: inline-flex;
+}
+
+.half-stars div {
+  margin: 0;
+}
+
+.half-stars div svg {
+  margin: 2px;
+  height: 32px;
+  width: 32px;
+}
+
+.half-stars .hsr {
+  padding-right: 0;
+  margin-right: -18px;
+  width: 18px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.active {
+  fill: gold;
+}
+
+.blank {
+  fill: #BFE2FF;
+}

@@ -2,62 +2,26 @@
   display: flex;
 }
 
-.sort_fresh {
+.sort_fresh,
+.sort_popular {
+  cursor: pointer;
   display: flex;
   align-items: center;
-  cursor: pointer;
-  margin-right: 10px;
+  color: var(--primary-color);
   padding: 7px;
-  border: 1px solid rgb(36, 221, 101);
+  border: 2px solid var(--primary-color);
   border-radius: 20px;
+
+  &:hover {
+    border: 2px solid var(--secondary-color);
+
+  }
 }
 
-.sort_popular {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 7px;
-  border: 1px solid rgb(36, 221, 101);
-  border-radius: 20px;
+.sort_fresh {
+  margin-right: 10px;
 }
 
 .active {
-  background: rgb(181, 35, 181);
+  background-color: var(--secondary-color);
 }
-
-
-// .main {
-//   position: relative;
-//   width: 110px;
-
-//   &:hover {
-//     .list {
-//       display: block;
-//     }
-//   }
-// }
-
-// .title {
-//   cursor: pointer;
-//   border: 1px solid grey;
-//   padding: 5px;
-// }
-
-// .list {
-//   top: 30px;
-//   left: 0;
-//   position: absolute;
-//   width: max-content;
-// }
-
-// .item {
-//   cursor: pointer;
-//   list-style: none;
-//   padding: 3px;
-//   border: 1px solid grey;
-//   background: white;
-
-//   &:hover {
-//     background: grey;
-//   }
-// }

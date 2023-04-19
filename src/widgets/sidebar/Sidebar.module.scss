@@ -1,9 +1,10 @@
 .sidebar_collapsed {
   width: var(--sidebar-width-collapsed);
+  margin-right: var(--sidebar-width-collapsed);
 }
 
 .children_collapsed {
-  display: none;
+  display: block;
 }
 
 .sidebar {

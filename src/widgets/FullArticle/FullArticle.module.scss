@@ -1,10 +1,16 @@
 .main_content {
-  padding: 40px;
+  padding: 40px 80px 40px 0;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 .article {
-  width: 60%;
-  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 15px;
+  width: 70%;
+  margin: 70px auto 0;
+  box-shadow: var(--main-box-shadow);
 }
 
 .image {
@@ -14,38 +20,80 @@
 }
 
 .title {
-  margin: 0 auto;
+  color: var(--primary-color);
+  font: var(--font-l);
+  margin: 15px auto;
   width: max-content;
-  border-bottom: 1px solid red;
+  border-bottom: 2px solid var(--secondary-color);
 }
 
 .tags {
-  a {
+  p {
+    cursor: pointer;
+    padding: 2px;
+    color: var(--primary-color);
+    font: var(--font-m);
+    display: inline-block;
     margin-right: 15px;
     text-decoration: none;
+    border: 2px solid var(--primary-color);
+
+    &:hover {
+      border: 2px solid var(--secondary-color);
+    }
   }
 }
 
 .author {
-  a {
-    text-decoration: none;
+  padding: 2px;
+  border: 2px solid var(--primary-color);
+  width: max-content;
+
+  margin-top: 20px;
+  margin-bottom: 30px;
+
+  &:hover {
+    border: 2px solid var(--secondary-color);
   }
 
-  margin-top: 10px;
-  margin-bottom: 30px;
+  a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font: var(--font-l);
+  }
 }
 
 .desc {
+  margin-bottom: 30px;
+
   p {
+    color: var(--primary-color);
+    font: var(--font-m);
     line-height: var(--font-size-xl);
   }
 
-  margin-bottom: 30px;
 }
 
 .comments {
-  border: 3px solid grey;
+  border: 2px solid var(--secondary-color);
   border-radius: 15px;
   min-height: 300px;
   padding: 20px;
+}
+
+.text {
+  color: var(--primary-color);
+  font: var(--font-m);
+  margin-bottom: 15px;
+}
+
+.back {
+  padding: 10px;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  background-color: var(--bg-color);
+
+  &:hover {
+    border: 2px solid var(--secondary-color);
+  }
 }

@@ -1,12 +1,15 @@
-.App.dark {
+.App.dark,
+.ReactModal__Overlay.dark {
   --bg-color: #231F20;
 
   --primary-color: #F2F2F2;
+  --secondary-color: #17cc54;
+
   --icons-fill: var(--white);
 
-  --main-box-shadow:  0 24px 38px 3px hsla(0,0%,100%,0.86),
-  0 9px 46px 8px hsla(0,0%,100%,0.88),
-  0 11px 15px -7px hsla(0,0%,100%,0.8);
+  --main-box-shadow: 0 24px 38px 3px hsla(0, 0%, 100%, 0.86),
+    0 9px 46px 8px hsla(0, 0%, 100%, 0.88),
+    0 11px 15px -7px hsla(0, 0%, 100%, 0.8);
 
   --collapse-btn-box-shadow: 3px 3px 3px rgba(225 225 225 0.5)
 }

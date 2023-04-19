@@ -11,7 +11,7 @@ export const ScrollUp: FC = () => {
 
   return (
     <div className={styles.main}>
-      <Arrow onClick={onClickArrow} />
+      <Arrow onClick={onClickArrow} className={styles.icon} />
     </div>
   );
 };

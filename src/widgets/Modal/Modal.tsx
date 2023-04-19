@@ -1,25 +1,17 @@
-import { type FC, useState, type ChangeEvent } from 'react';
+import { type FC, useState, type ChangeEvent, type MouseEvent } from 'react';
 import Modal from 'react-modal';
 import { ReactComponent as Clear } from '@/shared/Icons/clear.svg';
 import styles from './Modal.module.scss';
 import { useGetCategoriesQuery } from '@/app/store/category/categoryAPI';
 import { useCreatePostMutation } from '@/app/store/posts/postAPI';
 import { type IPosts } from '@/app/store/posts/interface';
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
+import clsx from 'clsx';
+import { useTheme } from '@/app/providers/ThemeProvider';
 
 Modal.setAppElement('#root');
 
 export const ModalWindow: FC = () => {
+  const { theme } = useTheme();
   const [imageUrl, setImageUrl] = useState('');
   const [filePreview, setFilePreview] = useState<any>(null);
   const [tags, setTags] = useState<string[]>([]);
@@ -29,7 +21,7 @@ export const ModalWindow: FC = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const { data: categories } = useGetCategoriesQuery();
-  const [createPost] = useCreatePostMutation();
+  const [createPost, { isError, isSuccess }] = useCreatePostMutation();
 
   const clearPostStates = (): void => {
     setImageUrl('');
@@ -44,18 +36,27 @@ export const ModalWindow: FC = () => {
   }
 
   function closeModal(): void {
-    if (confirm('Вы хотите сохранить содержимое?')) {
-      clearPostStates();
+    if (imageUrl || tags.length > 0 || description || title) {
+      if (confirm('Вы точно хотите выйти?')) {
+        clearPostStates();
+        setIsOpen(false);
+      }
+    } else {
+      setIsOpen(false);
     }
-    setIsOpen(false);
   }
 
-  const onClickCategory = (event: any): void => {
+  const onClickClearUrl = (): void => {
+    setImageUrl('');
+    setFilePreview(null);
+  };
+
+  const onClickCategory = (event: MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    const target = event.target;
+    const target = event.target as any;
     if (target) {
       const tagsArray = [...tags, target.innerText];
-      setTags(tagsArray);
+      setTags([...new Set(tagsArray)]);
       if (target.style.backgroundColor === 'rgb(24, 233, 94)') {
         target.style.backgroundColor = '';
       } else {
@@ -89,11 +90,16 @@ export const ModalWindow: FC = () => {
       creationAt: date,
       images: imageUrl,
       category: [...tags],
-      rating: 700
+      rating: 0,
+      ratingArr: []
     };
     await createPost(data as IPosts);
-    alert('Статья создана');
-    setIsOpen(false);
+    if (isSuccess) {
+      alert('Статья создана');
+      setIsOpen(false);
+    } else if (isError) {
+      alert('Что-то пошло не так');
+    }
   };
 
   return (
@@ -104,19 +110,32 @@ export const ModalWindow: FC = () => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Modal">
+        contentLabel="Modal"
+        className={styles.modal}
+        overlayClassName={clsx(styles.overlay, theme)}>
         <form>
-          <label>
+          <label className={styles.title}>
             <p>Заголовок</p>
-            <input onChange={handleInputTitleChange} type="text" className={styles.title} />
+            <input onChange={handleInputTitleChange} type="text" />
           </label>
           <label className={styles.load__image}>
             <div>
               <p>Введите URL изображения</p>
-              <input onChange={handleFileInputChange} className={styles.input} type="text" />
+              <div className={styles.load__image_url}>
+                <input
+                  onChange={handleFileInputChange}
+                  className={styles.input_img}
+                  type="text"
+                  value={imageUrl}
+                />
+                <Clear onClick={onClickClearUrl} className={styles.clearUrl} />
+              </div>
             </div>
-            {filePreview && <img src={filePreview} alt="preview" width={300} height={300} />}
+            {filePreview ? (
+              <img src={filePreview} alt="preview" width={300} height={250} />
+            ) : (
+              <div className={styles.imageField}>{'Предпросмотр изображения'}</div>
+            )}
           </label>
           <div className={styles.load__categories}>
             <p>Выберите теги</p>
@@ -128,7 +147,7 @@ export const ModalWindow: FC = () => {
               ))}
             </div>
           </div>
-          <label>
+          <label className={styles.text_label}>
             <textarea
               onChange={handleInputDescChange}
               className={styles.area}
@@ -137,6 +156,7 @@ export const ModalWindow: FC = () => {
               rows={10}></textarea>
           </label>
           <button
+            className={styles.create_post}
             onClick={() => {
               void handleCreate();
             }}

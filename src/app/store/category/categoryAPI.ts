@@ -1,6 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { type IPostByCategory, type ICategories } from '@/app/store/category/interface';
-import { type SortByType } from './categorySlice';
+import {
+  type IPostByCategory,
+  type ICategories,
+  type SortByType
+} from '@/app/store/category/interface';
 
 export const categoryAPI = createApi({
   reducerPath: 'categoryAPI',

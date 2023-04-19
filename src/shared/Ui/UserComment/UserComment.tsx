@@ -1,36 +1,53 @@
 import { type FC } from 'react';
 import styles from './UserComment.module.scss';
-import { useGetCommentsQuery } from '@/app/store/comment/commentAPI';
+import { useParams } from 'react-router-dom';
+import { type IComments } from '@/app/store/posts/interface';
 
-export const UserComment: FC = () => {
-  const { data, isLoading, error } = useGetCommentsQuery(6);
+interface IPropsComment {
+  value: IComments[] | [];
+}
+
+export const UserComment: FC<IPropsComment> = ({ value }) => {
+  const { title } = useParams();
+
   return (
     <>
-      {isLoading ? (
-        <div>{'Загрузка...'}</div>
-      ) : error ? (
-        <div>{'Не удалось загрузить'}</div>
-      ) : (
-        data?.map((item) => (
-          <div key={item.id} className={styles.comment}>
+      {value.length >= 1 ? (
+        !title ? (
+          <div className={styles.comment}>
             <div className={styles.profile}>
-              <div>
-                <img className={styles.avatar} src={item.avatar} alt="avatar" />
+              <div className={styles.avatar}>
+                <img src={value[0].avatar} alt="avatar" />
               </div>
               <div className={styles.desc}>
-                <h3>{item.name}</h3>
-                <p>{item.email}</p>
+                <h3>{value[0].name}</h3>
+                <p>{value[0].email}</p>
               </div>
             </div>
             <div className={styles.content}>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro ut quia, expedita
-                debitis consequuntur accusantium officiis, velit cupiditate quisquam rem voluptatum
-                sed commodi labore, quo reprehenderit assumenda impedit suscipit magni!
-              </p>
+              <p>{value[0].body}</p>
             </div>
           </div>
-        ))
+        ) : (
+          value?.map((item) => (
+            <div key={item.id} className={styles.comment}>
+              <div className={styles.profile}>
+                <div className={styles.avatar}>
+                  <img src={item.avatar} alt="avatar" />
+                </div>
+                <div className={styles.desc}>
+                  <h3>{item.name}</h3>
+                  <p>{item.email}</p>
+                </div>
+              </div>
+              <div className={styles.content}>
+                <p>{item.body}</p>
+              </div>
+            </div>
+          ))
+        )
+      ) : (
+        <div>{'Комментариев нет. Будьте первыми!'}</div>
       )}
     </>
   );

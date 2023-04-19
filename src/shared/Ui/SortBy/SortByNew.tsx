@@ -2,7 +2,8 @@ import { type FC, useState } from 'react';
 import styles from './SortBy.module.scss';
 import clsx from 'clsx';
 import { useAppDispatch } from '@/app/store/hooks/redux';
-import { SortByType, changeSortBy } from '@/app/store/category/categorySlice';
+import { changeSortBy } from '@/app/store/category/categorySlice';
+import { SortByType } from '@/app/store/category/interface';
 
 export const SortBy: FC = () => {
   const dispatch = useAppDispatch();

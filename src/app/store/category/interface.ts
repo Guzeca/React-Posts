@@ -4,11 +4,32 @@ export interface ICategories {
 }
 
 export interface IPostByCategory {
-  id: number;
+  id: string;
   title: string;
   rating: number;
+  ratingArr: number[] | [];
   description: string;
   images: string;
   creationAt: string;
   category: string[];
+  comments: IComments[] | [];
+}
+
+export interface IComments {
+  avatar: string;
+  email: string;
+  id: string;
+  name: string;
+  body: string;
+}
+
+export enum SortByType {
+  FRESH = 'creationAt',
+  POPULAR = 'rating'
+}
+
+export interface ICategoryId {
+  searchValue: string;
+  category: string;
+  sortBy: SortByType;
 }

@@ -4,6 +4,8 @@ import { useGetCategoriesQuery } from '@/app/store/category/categoryAPI';
 import { useOnClickOutside } from '@/shared/hooks/useClickOutside';
 import { useAppDispatch } from '@/app/store/hooks/redux';
 import { changeCategory } from '@/app/store/category/categorySlice';
+import { changePost, setBaseLimit } from '@/app/store/posts/postSlice';
+import { TypeOfPosts } from '@/app/store/posts/interface';
 
 export const Category: FC = () => {
   const [category, setCategory] = useState('Все категории');
@@ -17,8 +19,12 @@ export const Category: FC = () => {
   const handleCategory = (item: string): void => {
     if (item === 'Все категории') {
       dispatch(changeCategory(''));
+      dispatch(setBaseLimit());
+      dispatch(changePost(TypeOfPosts.REGULAR));
     } else {
       dispatch(changeCategory(item.toLowerCase()));
+      dispatch(setBaseLimit());
+      dispatch(changePost(TypeOfPosts.CATEGORY));
     }
     setCategory(item);
     setOpen(false);

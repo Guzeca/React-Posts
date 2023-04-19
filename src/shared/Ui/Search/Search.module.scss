@@ -6,19 +6,36 @@
 
 .input {
   width: 100%;
+  color: var(--primary-color);
   font-size: var(--font-size-m);
   padding: 10px 15px 10px 50px;
+  outline: none;
+  border: 2px solid var(--primary-color);
+
+  background-color: var(--bg-color);
+
+  &::placeholder {
+    color: var(--primary-color);
+    opacity: 0.6;
+  }
+
+  &:focus {
+    border: 2px solid var(--secondary-color);
+  }
 }
 
 .find {
   position: absolute;
   left: 6px;
-  top: 6px
+  top: 6px;
+
+  fill: var(--icons-fill)
 }
 
 .clear {
   cursor: pointer;
   position: absolute;
   right: 6px;
-  top: 6px
+  top: 6px;
+  fill: var(--icons-fill)
 }

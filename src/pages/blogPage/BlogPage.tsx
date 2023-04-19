@@ -1,21 +1,18 @@
 import { type FC, useState, useRef } from 'react';
 import { Category } from '@/shared/Ui/Category/Category';
 import { Search } from '@/shared/Ui/Search/Search';
-
-import styles from './BlogPage.module.scss';
 import { Posts } from '@/widgets/Posts/Posts';
-import { PostsByCategory } from '@/widgets/PostsByCategory/PostsByCategory';
-import { SearchedPosts } from '@/widgets/SearchedPosts/SearchedPosts';
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks/redux';
 import { SortBy } from '@/shared/Ui/SortBy/SortByNew';
 import { ScrollUp } from '@/shared/Ui/ScrollUp/ScrollUp';
 import { ModalWindow } from '@/widgets/Modal/Modal';
-import { changeLimit } from '@/app/store/category/categorySlice';
+import { useAppDispatch } from '@/app/store/hooks/redux';
+import { changeLimit } from '@/app/store/posts/postSlice';
+
+import styles from './BlogPage.module.scss';
 
 export const BlogPage: FC = () => {
   const [arrowShow, setArrowShow] = useState(false);
 
-  const { category, searchValue, limit } = useAppSelector((state) => state.categoryId);
   const dispatch = useAppDispatch();
 
   const divRef = useRef<HTMLDivElement>(null);
@@ -25,9 +22,8 @@ export const BlogPage: FC = () => {
     if (element) {
       const scrollHeight = element.scrollHeight;
       const scrollTop = element.scrollTop;
-      console.log(window.innerHeight);
-      if (scrollTop + window.innerHeight - 15 === scrollHeight) {
-        dispatch(changeLimit(limit + 2));
+      if (scrollTop + window.innerHeight === scrollHeight) {
+        dispatch(changeLimit());
       }
       if (scrollTop && scrollTop > 600 && !arrowShow) {
         setArrowShow(true);
@@ -50,7 +46,7 @@ export const BlogPage: FC = () => {
           <SortBy />
         </div>
       </div>
-      {searchValue ? <SearchedPosts /> : category && !searchValue ? <PostsByCategory /> : <Posts />}
+      {<Posts />}
     </div>
   );
 };
