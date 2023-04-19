@@ -91,7 +91,8 @@ export const ModalWindow: FC = () => {
       images: imageUrl,
       category: [...tags],
       rating: 0,
-      ratingArr: []
+      ratingArr: [],
+      comments: []
     };
     await createPost(data as IPosts);
     if (isSuccess) {
