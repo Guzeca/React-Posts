@@ -36,3 +36,30 @@
   font-size: var(--font-size-l);
   line-height: var(--font-line-l);
 }
+
+.useful {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 10px;
+  color: var(--secondary-color);
+
+  p {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+.useful__down {
+  svg {
+    cursor: pointer;
+    fill: rgb(223, 26, 26);
+  }
+}
+
+.useful__up {
+  svg {
+    cursor: pointer;
+    fill: rgb(54, 255, 47);
+  }
+}

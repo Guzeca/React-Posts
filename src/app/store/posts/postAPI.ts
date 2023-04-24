@@ -7,7 +7,7 @@ export const postAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://6428495546fd35eb7c4fa334.mockapi.io/'
   }),
-  tagTypes: ['Posts'],
+  tagTypes: ['Posts', 'Post'],
   endpoints: (build) => ({
     getPosts: build.query<IPosts[], { limit: number; order: SortByType }>({
       query: ({ limit = 2, order = SortByType.POPULAR }) =>
@@ -18,7 +18,8 @@ export const postAPI = createApi({
       query: (search = '') => `posts?search=${search}`
     }),
     getOnePost: build.query<IPosts[], string>({
-      query: (id) => `posts?id=${id}`
+      query: (id) => `posts?id=${id}`,
+      providesTags: ['Post']
     }),
     createPost: build.mutation<IPosts, IPosts>({
       query: (post) => ({
@@ -35,6 +36,14 @@ export const postAPI = createApi({
         body: post
       }),
       invalidatesTags: ['Posts']
+    }),
+    updateComment: build.mutation<IPosts[], IPosts>({
+      query: (post) => ({
+        url: `posts/${post.id}`,
+        method: 'PUT',
+        body: post
+      }),
+      invalidatesTags: ['Post']
     })
   })
 });
@@ -44,5 +53,6 @@ export const {
   useGetOnePostQuery,
   useGetPostsByNameQuery,
   useCreatePostMutation,
-  useUpdatePostMutation
+  useUpdatePostMutation,
+  useUpdateCommentMutation
 } = postAPI;

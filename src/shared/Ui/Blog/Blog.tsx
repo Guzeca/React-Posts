@@ -28,7 +28,7 @@ export const Blog: FC<IPosts> = ({ title, images, id, rating, creationAt = '', c
           </Link>
         </div>
       </div>
-      <div className={styles.comments}>{<UserComment value={comments} />}</div>
+      <div className={styles.comments}>{<UserComment comments={comments} />}</div>
       {creationAt}
     </div>
   );

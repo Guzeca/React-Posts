@@ -1,6 +1,6 @@
 import { type FC } from 'react';
 import { useParams } from 'react-router-dom';
-import { type IComments } from '@/app/store/posts/interface';
+import { type IComments, type IPosts } from '@/app/store/posts/interface';
 import { ReactComponent as UpUseful } from '@/shared/Icons/up-useful.svg';
 import { ReactComponent as DownUseful } from '@/shared/Icons/down-useful.svg';
 
@@ -8,10 +8,39 @@ import styles from './UserComment.module.scss';
 
 interface IPropsComment {
   comments: IComments[] | [];
+  updateHelpful: (post: IPosts) => void;
+  post: IPosts;
 }
 
-export const UserComment: FC<IPropsComment> = ({ comments }) => {
+export const UserCommentForFullArticle: FC<IPropsComment> = ({ comments, post, updateHelpful }) => {
   const { title } = useParams();
+
+  const handleUpdateUp = (event: React.MouseEvent<HTMLDivElement>): void => {
+    const element = event.target as HTMLDivElement;
+    const div = element.closest('div');
+    const commentID = div?.id;
+
+    const newComments = comments.map((item) =>
+      item.id === commentID ? { ...item, useful: item.useful + 1 } : item
+    );
+    if (element) {
+      updateHelpful({ ...post, comments: newComments });
+    }
+  };
+
+  const handleUpdateDown = (event: React.MouseEvent<HTMLDivElement>): void => {
+    const element = event.target as HTMLDivElement;
+    const div = element.closest('div');
+    const commentID = div?.id;
+
+    const newComments = comments.map((item) =>
+      item.id === commentID ? { ...item, useful: item.useful - 1 } : item
+    );
+
+    if (element) {
+      updateHelpful({ ...post, comments: newComments });
+    }
+  };
 
   return (
     <>
@@ -50,9 +79,13 @@ export const UserComment: FC<IPropsComment> = ({ comments }) => {
                 <p>{item.body}</p>
               </div>
               <div className={styles.useful}>
-                <UpUseful className={styles.useful__up} />
+                <div id={item.id} className={styles.useful__up} onClick={handleUpdateUp}>
+                  <UpUseful />
+                </div>
                 <p>{item.useful}</p>
-                <DownUseful className={styles.useful__down} />
+                <div id={item.id} className={styles.useful__down} onClick={handleUpdateDown}>
+                  <DownUseful />
+                </div>
               </div>
             </div>
           ))

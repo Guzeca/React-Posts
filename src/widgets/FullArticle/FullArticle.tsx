@@ -2,12 +2,16 @@ import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from '@/shared/Ui/Button/Button';
-import { UserComment } from '@/shared/Ui/UserComment/UserComment';
-import { useGetOnePostQuery, useUpdatePostMutation } from '@/app/store/posts/postAPI';
+import {
+  useGetOnePostQuery,
+  useUpdateCommentMutation,
+  useUpdatePostMutation
+} from '@/app/store/posts/postAPI';
 
 import styles from './FullArticle.module.scss';
 import { StarsForFullArticle } from '@/shared/Ui/Stars/StarsForFullArticle';
 import { type IPosts } from '@/app/store/posts/interface';
+import { UserCommentForFullArticle } from '@/shared/Ui/UserComment/UserCommentForFullArticle';
 
 export const FullPost: FC = () => {
   const { t } = useTranslation();
@@ -18,9 +22,14 @@ export const FullPost: FC = () => {
   const post = data && data[0];
 
   const [updatePost] = useUpdatePostMutation();
+  const [updateComments] = useUpdateCommentMutation();
 
   const handleUpdate = (data: IPosts): void => {
     updatePost(data);
+  };
+
+  const handleUpdateComment = (post: IPosts): void => {
+    updateComments(post);
   };
 
   return (
@@ -58,7 +67,11 @@ export const FullPost: FC = () => {
             <div className={styles.text}>
               <p>Комментарии:</p>
               <div className={styles.comments}>
-                <UserComment value={post.comments} />
+                <UserCommentForFullArticle
+                  post={post}
+                  updateHelpful={handleUpdateComment}
+                  comments={post.comments}
+                />
               </div>
             </div>
           </div>

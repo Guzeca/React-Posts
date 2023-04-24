@@ -21,6 +21,7 @@ export interface IComments {
   id: string;
   name: string;
   body: string;
+  useful: number;
 }
 
 export enum SortByType {
