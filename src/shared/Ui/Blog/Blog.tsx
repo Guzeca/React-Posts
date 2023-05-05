@@ -10,6 +10,11 @@ import { StarsForPosts } from '../Stars/StarsForPosts';
 export const Blog: FC<IPosts> = ({ title, images, id, rating, creationAt = '', comments }) => {
   const { t } = useTranslation();
 
+  const now = new Date().getTime();
+  const creationDate = new Date(creationAt).getTime();
+  const diff = now - creationDate;
+  const daysAgo = Math.round(diff / (1000 * 60 * 60 * 24));
+
   return (
     <div className={styles.content}>
       <div>
@@ -29,7 +34,7 @@ export const Blog: FC<IPosts> = ({ title, images, id, rating, creationAt = '', c
         </div>
       </div>
       <div className={styles.comments}>{<UserComment comments={comments} />}</div>
-      {creationAt}
+      <div className={styles.create}>{daysAgo > 0 ? `${daysAgo} дней назад` : 'недавно'}</div>
     </div>
   );
 };
